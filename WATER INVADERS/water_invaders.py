@@ -11,10 +11,11 @@ pygame.display.set_caption("Water Invaders")
 # chargement de l'image de fond
 fond = pygame.image.load('mer.jpg')
 fond = pygame.transform.scale(fond, (800, 600))
+fond2 = pygame.image.load('accueil.PNG')
+fond2 = pygame.transform.scale(fond2, (800, 600))
 musique = pygame.mixer.music.load("musiquebob.mp3")
 bulle = pygame.mixer.Sound("bullesbruit.mp3")
 clock = pygame.time.Clock()
-
 
 font = pygame.font.Font(None, 36)
 
@@ -30,8 +31,18 @@ for indice in range(space.Ennemi.NbEnnemis):
     listeEnnemis.append(vaisseau)
     
 ### BOUCLE DE JEU  ###
-running = True # variable pour laisser la fenêtre ouverte
-pygame.mixer.music.play()
+running = False # variable pour laisser la fenêtre ouverte
+a = True
+
+while a :
+    screen.blit(fond2, (0, 0))
+    for event in pygame.event.get(): # parcours de tous les event pygame dans cette fenêtre
+        if event.type == pygame.KEYDOWN:  # si une touche a été tapée KEYUP quand on relache la touche
+            if event.key == pygame.K_SPACE:
+                a= False# si la touche est la barre espace
+                running= True
+                pygame.mixer.music.play()
+    pygame.display.update()
 
 while running : # boucle infinie pour laisser la fenêtre ouverte
     if player.score < 300 and player.score >= 0:
@@ -58,10 +69,10 @@ while running : # boucle infinie pour laisser la fenêtre ouverte
         text3 = font.render("GAME OVER", 1, (255, 255, 255))
         
         # texte pour bouton rejouer
-        text4 = font.render("Rejouer??", 1, (255, 255, 255))
+        text4 = font.render("Press space to restart or enter to quit", 1, (255, 255, 255))
         
         # texte pour bouton quitter
-        text5 = font.render("Quitter??", 1, (255, 255, 255))
+        # text5 = font.render("Quitter??", 1, (255, 255, 255))
         
         ### Gestion des événements  ###
         for event in pygame.event.get(): # parcours de tous les event pygame dans cette fenêtre
@@ -120,25 +131,25 @@ while running : # boucle infinie pour laisser la fenêtre ouverte
         
         if player.score >= 300 :
             screen.blit(text2, (320,250))
-            screen.blit(text4, (340,300))
-            screen.blit(text5, (620,540))
-            if event.type == pygame.MOUSEBUTTONDOWN: 
-                if click_rejouer:
-                    player.score = 0
-                elif click_quitter:
-                    running = False
-                    sys.exit()
+            screen.blit(text4, (180,300))
+            # screen.blit(text5, (620,540))
+            # if event.type == pygame.MOUSEBUTTONDOWN: 
+                # if click_rejouer:
+                    # player.score = 0
+                # elif click_quitter:
+                    # running = False
+                    # sys.exit()
         
         if player.score < 0 :
             screen.blit(text3, (320,250))
-            screen.blit(text4, (340,300))
-            screen.blit(text5, (620,540))
-            if event.type == pygame.MOUSEBUTTONDOWN:
-                if click_rejouer:
-                    player.score = 0
-                elif click_quitter:
-                    running = False
-                    sys.exit()
+            screen.blit(text4, (180,300))
+            # screen.blit(text5, (620,540))
+            # if event.type == pygame.MOUSEBUTTONDOWN:
+                # if click_rejouer:
+                    # player.score = 0
+                # elif click_quitter:
+                    # running = False
+                    # sys.exit()
                     
     clock.tick(60)
     pygame.display.update() # pour ajouter tout changement à l'écran
