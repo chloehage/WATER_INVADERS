@@ -71,9 +71,6 @@ while running : # boucle infinie pour laisser la fenêtre ouverte
         # texte pour bouton rejouer
         text4 = font.render("Press space to restart or enter to quit", 1, (255, 255, 255))
         
-        # texte pour bouton quitter
-        # text5 = font.render("Quitter??", 1, (255, 255, 255))
-        
         ### Gestion des événements  ###
         for event in pygame.event.get(): # parcours de tous les event pygame dans cette fenêtre
             if event.type == pygame.QUIT : # si l'événement est le clic sur la fermeture de la fenêtre
@@ -132,24 +129,32 @@ while running : # boucle infinie pour laisser la fenêtre ouverte
         if player.score >= 300 :
             screen.blit(text2, (320,250))
             screen.blit(text4, (180,300))
-            # screen.blit(text5, (620,540))
-            # if event.type == pygame.MOUSEBUTTONDOWN: 
-                # if click_rejouer:
-                    # player.score = 0
-                # elif click_quitter:
-                    # running = False
-                    # sys.exit()
+            for event in pygame.event.get(): # parcours de tous les event pygame dans cette fenêtre
+                if event.type == pygame.KEYDOWN:  # si une touche a été tapée KEYUP quand on relache la touche
+                    if event.key == pygame.K_SPACE:
+                        player.score = 0
+                        listeEnnemis = []
+                        for indice in range(space.Ennemi.NbEnnemis): # on recrée les ennemis
+                            vaisseau = space.Ennemi()
+                            listeEnnemis.append(vaisseau)
+                    if event.key == pygame.K_RETURN:
+                        running = False
+                        sys.exit()
         
         if player.score < 0 :
             screen.blit(text3, (320,250))
             screen.blit(text4, (180,300))
-            # screen.blit(text5, (620,540))
-            # if event.type == pygame.MOUSEBUTTONDOWN:
-                # if click_rejouer:
-                    # player.score = 0
-                # elif click_quitter:
-                    # running = False
-                    # sys.exit()
+            for event in pygame.event.get(): # parcours de tous les event pygame dans cette fenêtre
+                if event.type == pygame.KEYDOWN:  # si une touche a été tapée KEYUP quand on relache la touche
+                    if event.key == pygame.K_SPACE:
+                        player.score = 0
+                        listeEnnemis = []
+                        for indice in range(space.Ennemi.NbEnnemis): # on recrée les ennemis
+                            vaisseau = space.Ennemi()
+                            listeEnnemis.append(vaisseau)
+                    if event.key == pygame.K_RETURN:
+                        running = False
+                        sys.exit()
                     
     clock.tick(60)
     pygame.display.update() # pour ajouter tout changement à l'écran
